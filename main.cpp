@@ -7,82 +7,60 @@ using namespace std;
 // Complete the freqQuery function below.
 vector<int> freqQuery(vector<vector<int>> queries) {
     map<int, int> freqMap;
-    map<int, int> posMap;
-    vector<int> holder;
-
-    int resultPosCounter = 0;
+    vector<int> appendedResults;
+    
     vector<int> endResult;
 
     vector<vector<int>>::iterator row;
     vector<int>::iterator col;
 
-    for(row = queries.begin(); row != queries.end(); row++){
+    for (row = queries.begin(); row != queries.end(); row++) {
+        for (col = row->begin(); col != row->end(); col++) {
+            if(*col == 1){
+                col++;
+                cout << "Increasing freq for : " << *col;
+                appendedResults.insert(appendedResults.end(), *col);
 
-        int thingCounter = 1;
 
-        for(col = row->begin(); col != row->end(); col++){
-            cout << *col << endl;
-            if(thingCounter == 1){
-                if(*col == 1){
-                    col++;
-                    freqMap[*col]++;
-                    holder.insert(holder.end(), *col);
-                    posMap[*col] = holder.size() - 1;
-                    cout << "Inserting thing: " << *col << "Freq map: " << freqMap[*col] <<  endl;
-                }else if(*col == 2){
-                    col++;
-                    cout << "Trying to delete " << *col << endl;
-                    if(posMap[*col] != 0){
-                        cout << "Deleting at position: " << posMap[*col] << " value: " << *col << " " <<endl;
-                        //cout << "Deleting first occurance of: " << *col << " at " << posMap[*col];
-                        holder.erase(holder.begin() + posMap[*col]);
+                freqMap[*col]++;
+                cout << "New freq: " << freqMap[*col] << endl;
+            }else if(*col == 2){
+                col++;
+                cout << "Attempting to delete " << *col << endl;
 
-                    }else{
-                        cout << "Nothing found to delete" << endl;
-                    }
-                    
+                if(freqMap[*col] >= 1){
+                    //Loop through appendedResults and delete the first *col we find
+                    appendedResults.erase(std::remove(appendedResults.begin(), appendedResults.end(), 8), appendedResults.end());
+                    freqMap[*col]--;
+                }
+                
 
-                }else if(*col == 3){
-                    col++;
-                    cout << "Freq map size: " << freqMap.size() << endl;
-
-                    if(freqMap.size() < 1){
-                        cout << "freq map's size is less than 1 so inserting 0" << endl;
-                        endResult.insert(endResult.end(), 0);
-                    }else{
-                        bool foundTwoFreq = false;
-                        
-                        //cout << "Checking for any frequency of : " << *col << endl;
-                        for(auto it = freqMap.begin(); it != freqMap.end(); ++it){
-                            if(it->second >= *col){
-                                cout << "Found matching freq, writing a 1" << endl;
-                                endResult.insert(endResult.end(), 1);
-                                foundTwoFreq = true;
-                                break;
-                            }
-                        }
-                        if(!foundTwoFreq){
-                            cout << "Couldn't find a matching freq" << endl;
-                            endResult.insert(endResult.end(), 0);
-                        }
-
-                    }
-
+            }else if(*col == 3){
+                col++;
+                cout << "Checking if a freq of " << *col << " exists " << endl;
+                if(freqMap.size() < 1){ 
+                    endResult.insert(endResult.end(), 0);
                 }else{
-                    col++;
+                    bool foundFreq = false;
+                    for(auto& thing:freqMap){
+                        if(thing.second == *col){
+                            endResult.insert(endResult.end(), 1);
+                            foundFreq = true;
+                            break;
+                        }
+                    }
+                    if(foundFreq == false){
+                        endResult.insert(endResult.end(), 0);
+                    }
                 }
             }else{
-                cout << "Operating on thing: " << *col << " ";
+                cout << "ERROR" << endl;
             }
         }
-        cout << endl;
     }
-    for(auto it = endResult.begin(); it != endResult.end(); ++it){
-        cout << *it << " ";
-    }
-    cout << endl;
-    for(auto it = posMap.begin(); it != posMap.end(); ++it){
-        cout << "Value " << it->first << " " <<  "Position " << it->second << " ";
+
+    for(auto& result:endResult){
+        cout << result << " ";
     }
 
     return endResult;
