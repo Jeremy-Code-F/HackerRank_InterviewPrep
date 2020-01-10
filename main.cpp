@@ -25,6 +25,7 @@ vector<int> freqQuery(vector<vector<int>> queries) {
 
                 charFreqMap[*col]++;
                 cout << "New freq: " << charFreqMap[*col] << endl;
+                freqMap[charFreqMap[*col]]++;
             }else if(*col == 2){
                 col++;
                 cout << "Attempting to delete " << *col << endl;
@@ -33,6 +34,7 @@ vector<int> freqQuery(vector<vector<int>> queries) {
                     //Loop through appendedResults and delete the first *col we find
                     appendedResults.erase(std::remove(appendedResults.begin(), appendedResults.end(), 8), appendedResults.end());
                     charFreqMap[*col]--;
+                    freqMap[charFreqMap[*col]]++;
                 }
                 
 
