@@ -6,6 +6,7 @@ using namespace std;
 
 // Complete the freqQuery function below.
 vector<int> freqQuery(vector<vector<int>> queries) {
+    map<int, int> charFreqMap;
     map<int, int> freqMap;
     vector<int> appendedResults;
     
@@ -22,27 +23,27 @@ vector<int> freqQuery(vector<vector<int>> queries) {
                 appendedResults.insert(appendedResults.end(), *col);
 
 
-                freqMap[*col]++;
-                cout << "New freq: " << freqMap[*col] << endl;
+                charFreqMap[*col]++;
+                cout << "New freq: " << charFreqMap[*col] << endl;
             }else if(*col == 2){
                 col++;
                 cout << "Attempting to delete " << *col << endl;
 
-                if(freqMap[*col] >= 1){
+                if(charFreqMap[*col] >= 1){
                     //Loop through appendedResults and delete the first *col we find
                     appendedResults.erase(std::remove(appendedResults.begin(), appendedResults.end(), 8), appendedResults.end());
-                    freqMap[*col]--;
+                    charFreqMap[*col]--;
                 }
                 
 
             }else if(*col == 3){
                 col++;
                 cout << "Checking if a freq of " << *col << " exists " << endl;
-                if(freqMap.size() < 1){ 
+                if(charFreqMap.size() < 1){ 
                     endResult.insert(endResult.end(), 0);
                 }else{
                     bool foundFreq = false;
-                    for(auto& thing:freqMap){
+                    for(auto& thing:charFreqMap){
                         if(thing.second == *col){
                             endResult.insert(endResult.end(), 1);
                             foundFreq = true;
