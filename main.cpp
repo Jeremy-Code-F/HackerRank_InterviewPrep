@@ -13,7 +13,7 @@ vector<int> freqQuery(vector<vector<int>> queries) {
     map<int, int> charFreqMap;
     map<int, int> freqMap;
     //vector<int> appendedResults;
-    
+
     vector<int> endResult;
 
     vector<vector<int>>::iterator row;
@@ -29,11 +29,11 @@ vector<int> freqQuery(vector<vector<int>> queries) {
                 if(currFreq > 0){
                     freqMap[currFreq]--;
                 }
-                
+
                 charFreqMap[*col]++;
                 //cout << *col << " Has occurred: " << charFreqMap[*col] << " times now." << endl;
 
-                
+
                 freqMap[currFreq+1]++;
                 //cout << "Increased the number of times the frequency: " << charFreqMap[*col] << " has occurred to: " << freqMap[charFreqMap[*col]] << endl;
             }else if(*col == 2){
@@ -51,9 +51,9 @@ vector<int> freqQuery(vector<vector<int>> queries) {
                     if(currFreq - 1 != 0){
                         freqMap[currFreq-1]++;
                     }
-                    
+
                 }
-                
+
 
             }else if(*col == 3){
                 col++;
