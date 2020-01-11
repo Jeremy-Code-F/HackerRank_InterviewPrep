@@ -3,7 +3,57 @@
 using namespace std;
 using namespace std::chrono;
 
+long countTriplets(vector<long> arr, long r){
+    map<int, vector<int>> positionMap;
 
+
+    int positionTracker = 0;
+    for(int number : arr){
+        vector<int> positions = positionMap[number];
+        positions.insert(positions.end(), positionTracker);
+        positionMap[number] = positions;
+
+        positionTracker++;
+    }
+
+     for(auto& position:positionMap){
+         cout << "Positions for: " << position.first << endl;
+         for(int thing: position.second){
+            cout << thing << " ";
+         }
+         cout << endl;
+     }
+
+     int currentPosTracker = 0;
+     int numOfProgressions = 0;
+     for(int number : arr){
+        int tempNumOfProgressions = 0;
+        if(positionMap[number * r].size() > 0){
+            cout << "Next geometric progress exists for : " << number << " " << positionMap[number * r].size() << " times."<< endl;
+            tempNumOfProgressions += positionMap[number * r].size();
+            if(positionMap[number * r * r].size() > 0){
+                cout << "Next geometric progress exists for : " << number * r  << " " << positionMap[number * r * r].size() << " times."<< endl;
+                tempNumOfProgressions *= positionMap[number * r * r].size();
+                numOfProgressions += tempNumOfProgressions;
+            }
+        }
+        currentPosTracker++;
+     }
+     cout << "Number of progressions: " << numOfProgressions << endl;
+
+    return numOfProgressions;
+}
+
+int findNumThatWork(int currentPos, vector<int> matchingVector){
+    int numberThatWork = 0;
+    for(int number: matchingVector){
+        if(number > currentPos){
+            numberThatWork++;
+        }
+    }
+
+    return numberThatWork;
+}
 
 // Complete the freqQuery function below.
 vector<int> freqQuery(vector<vector<int>> queries) {
@@ -82,52 +132,15 @@ vector<int> freqQuery(vector<vector<int>> queries) {
 }
 
 int main(){
-    vector<vector<int>> table;
-    vector<int> firstRow;
-    firstRow.push_back(1);
-    firstRow.push_back(5);
-    vector<int> secondRow;
-    secondRow.push_back(1);
-    secondRow.push_back(6);
-    vector<int> thirdRow;
-    thirdRow.push_back(3);
-    thirdRow.push_back(2);
-    vector<int> fourthRow;
-    fourthRow.push_back(1);
-    fourthRow.push_back(10);
-    vector<int> fifthRow;
-    fifthRow.push_back(1);
-    fifthRow.push_back(10);
-    vector<int> sixthRow;
-    sixthRow.push_back(1);
-    sixthRow.push_back(6);
-    vector<int> seventhRow;
-    seventhRow.push_back(2);
-    seventhRow.push_back(5);
-    vector<int> eighthRow;
-    eighthRow.push_back(3);
-    eighthRow.push_back(2);
-    vector<int> ninthRow;
-    ninthRow.push_back(2);
-    ninthRow.push_back(10);
-    vector<int> tenthRow;
-    tenthRow.push_back(2);
-    tenthRow.push_back(6);
-    vector<int> eleventhRow;
-    eleventhRow.push_back(3);
-    eleventhRow.push_back(2);
-    table.push_back(firstRow);
-    table.push_back(secondRow);
-    table.push_back(thirdRow);
-    table.push_back(fourthRow);
-    table.push_back(fifthRow);
-    table.push_back(sixthRow);
-    table.push_back(seventhRow);
-    table.push_back(eighthRow);
-    table.push_back(ninthRow);
-    table.push_back(tenthRow);
-    table.push_back(eleventhRow);
+
+    //vector<int> results = freqQuery(table);
+
+    vector<long int> geomProgresInput;
+    geomProgresInput.push_back(1);
+    geomProgresInput.push_back(1);
+    geomProgresInput.push_back(1);
+    geomProgresInput.push_back(1);
 
 
-    vector<int> results = freqQuery(table);
+    countTriplets(geomProgresInput, 1);
 }
