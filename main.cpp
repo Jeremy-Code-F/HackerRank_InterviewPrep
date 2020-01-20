@@ -1,10 +1,12 @@
 #include<iostream>
 #include<bits/stdc++.h>
+#include<Array_Problems.h>
+#include<map>
+#include<vector>
 using namespace std;
-using namespace std::chrono;
 
 long countTriplets(vector<long> arr, long r){
-    map<int, vector<int>> positionMap;
+    map<int, vector<int> > positionMap;
 
 
     int positionTracker = 0;
@@ -16,13 +18,7 @@ long countTriplets(vector<long> arr, long r){
         positionTracker++;
     }
 
-     for(auto& position:positionMap){
-         cout << "Positions for: " << position.first << endl;
-         for(int thing: position.second){
-            cout << thing << " ";
-         }
-         cout << endl;
-     }
+
 
      int currentPosTracker = 0;
      int numOfProgressions = 0;
@@ -56,9 +52,8 @@ int findNumThatWork(int currentPos, vector<int> matchingVector){
 }
 
 // Complete the freqQuery function below.
-vector<int> freqQuery(vector<vector<int>> queries) {
+vector<int> freqQuery(vector<vector<int> > queries) {
 
-    auto start = high_resolution_clock::now();
 
     map<int, int> charFreqMap;
     map<int, int> freqMap;
@@ -66,7 +61,7 @@ vector<int> freqQuery(vector<vector<int>> queries) {
 
     vector<int> endResult;
 
-    vector<vector<int>>::iterator row;
+    vector<vector<int> >::iterator row;
     vector<int>::iterator col;
 
     for (row = queries.begin(); row != queries.end(); row++) {
@@ -121,26 +116,21 @@ vector<int> freqQuery(vector<vector<int>> queries) {
         }
     }
 
-    // for(auto& result:endResult){
-    //     cout << result << " ";
-    // }
-    auto end = high_resolution_clock::now();
-    auto duration = duration_cast<microseconds>(end - start);
-    cout << duration.count() << endl;
 
     return endResult;
 }
 
 int main(){
-
+    vector<vector<int> > newArr;
+    Array_Problems::Hourglass_Problem(newArr);
     //vector<int> results = freqQuery(table);
 
-    vector<long int> geomProgresInput;
-    geomProgresInput.push_back(1);
-    geomProgresInput.push_back(1);
-    geomProgresInput.push_back(1);
-    geomProgresInput.push_back(1);
+    //vector<long int> geomProgresInput;
+    //geomProgresInput.push_back(1);
+    //geomProgresInput.push_back(1);
+    //geomProgresInput.push_back(1);
+    //geomProgresInput.push_back(1);
 
 
-    countTriplets(geomProgresInput, 1);
+    //countTriplets(geomProgresInput, 1);
 }
